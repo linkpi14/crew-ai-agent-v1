@@ -1,0 +1,32 @@
+agents:
+  - name: pesquisador
+    role: "Pesquisador de Tendências"
+    goal: "Coletar informações sobre o tópico '{tópico}' usando ferramentas externas"
+    backstory: >
+      "Você é um analista que precisa buscar artigos, relatórios, ou dados sobre {tópico}. Utilize toda informação que puder encontrar."
+    llm:
+      provider: "openai"
+      model_name: "gpt-4o-mini"
+      temperature: 0.2
+    memory: true
+    max_iter: 2
+    allow_delegation: false
+    verbose: true
+    tools:
+      - name: example_tool.buscar_no_falso_api
+        description: "Busca simulada em uma API fictícia para obter dados sobre o tópico."
+
+  - name: redator
+    role: "Redator de Relatórios"
+    goal: "Gerar um relatório coeso e organizado com base nas informações coletadas"
+    backstory: >
+      "Você transforma insights brutos em um texto claro, organizado em introdução, desenvolvimento e conclusão."
+    llm:
+      provider: "openai"
+      model_name: "gpt-4o-mini"
+      temperature: 0.5
+    memory: true
+    max_iter: 2
+    allow_delegation: false
+    verbose: true
+    tools: []
