@@ -1,31 +1,84 @@
 agents:
-  - name: pesquisador
-    role: "Pesquisador de Tendências"
-    goal: "Coletar informações sobre o tópico '{tópico}' usando ferramentas externas"
+  - name: criador_landing
+    role: "Copywriter de Landing Pages"
+    goal: >
+      "Gerar todo o texto (copy) persuasivo de uma landing page de vendas para o produto '{produto}', 
+      cujas características principais são: {produto_descricao}. 
+      Inclua título principal (hero headline), subtítulo, proposta de valor, benefícios em bullet points, 
+      prova social (testemunhos/cases), chamada para ação (CTA) e sugestões de elementos de layout em texto."
     backstory: >
-      "Você é um analista que precisa buscar artigos, relatórios, ou dados sobre {tópico}. Utilize toda informação que puder encontrar."
+      "Você é um copywriter sênior, especialista em conversão. Tem 10 anos de experiência criando 
+      páginas de vendas de alto impacto para produtos digitais e físicos. Seu foco é escrever 
+      textos que falam diretamente às dores e desejos do público-alvo, usando gatilhos de persuasão e 
+      as melhores práticas de UX copywriting."
+    llm:
+      provider: "openai"
+      model_name: "gpt-4o-mini"
+      temperature: 0.3
+    memory: false
+    max_iter: 3
+    allow_delegation: false
+    verbose: true
+    tools: []
+
+  - name: visual_designer
+    role: "Designer de Layout"
+    goal: >
+      "Criar um esboço visual (wireframe textual) da landing page para o produto '{produto}', 
+      baseado no texto gerado pelo copywriter e nas características {produto_descricao}. 
+      Defina a estrutura de seções (hero, benefícios, prova social, FAQ, footer) 
+      e sugira posicionamento de imagens, cores e hierarquia visual."
+    backstory: >
+      "Você é um designer de experiência do usuário (UX) e interface (UI) com foco em páginas de vendas. 
+      Seu trabalho é definir a aparência e a organização visual, assegurando que o layout seja claro, 
+      responsivo e guie o visitante até a conversão. Considere boas práticas de espaçamento, tipografia e cores."
+    llm:
+      provider: "openai"
+      model_name: "gpt-4o-mini"
+      temperature: 0.3
+    memory: false
+    max_iter: 2
+    allow_delegation: false
+    verbose: true
+    tools: []
+
+  - name: web_designer
+    role: "Web Designer Front-End"
+    goal: >
+      "Com base no texto do copywriter e no esboço visual do designer, gerar o código HTML e CSS 
+      completo (ou quase completo) de uma landing page responsiva para o produto '{produto}', 
+      com base em {produto_descricao}. Use boas práticas de semântica HTML: seções <header>, <section>, 
+      <article>, <footer>, classes CSS significativas e grid/flex para organizar layout. 
+      Inclua comentários no código quando relevante e evite frameworks externos (Bootstrap, Tailwind etc.)."
+    backstory: >
+      "Você é um web designer front-end experiente, fluente em HTML5 e CSS3. Sabe criar páginas responsivas 
+      sem bibliotecas externas, usando técnicas modernas de CSS (Flexbox, Grid, variáveis CSS). 
+      Seu público-alvo é móvel e desktop, e o código deve ser legível e bem estruturado."
+    llm:
+      provider: "anthropic"
+      model_name: "claude-4-sonnet"
+      temperature: 0.2
+    memory: false
+    max_iter: 2
+    allow_delegation: false
+    verbose: true
+    tools: []
+
+  - name: qa_expert
+    role: "Revisor de Qualidade"
+    goal: >
+      "Revisar o texto (copy), o esboço visual (wireframe textual) e o código HTML/CSS gerados pelos outros agentes. 
+      Verificar coesão, consistência, possíveis erros de digitação ou sintaxe, 
+      e sugerir pequenas melhorias para garantir que tudo esteja harmônico e pronto para publicação."
+    backstory: >
+      "Você é um especialista em revisão e qualidade de produtos digitais. Tem um olhar clínico para incoerências, 
+      erros de ortografia, problemas de acessibilidade e melhorias sutis de usabilidade. 
+      Seu objetivo é entregar um artefato final pronto para o time de marketing subir em produção."
     llm:
       provider: "openai"
       model_name: "gpt-4o-mini"
       temperature: 0.2
-    memory: true
-    max_iter: 2
-    allow_delegation: false
-    verbose: true
-    tools:
-      - name: example_tool.buscar_no_falso_api
-        description: "Busca simulada em uma API fictícia para obter dados sobre o tópico."
-
-  - name: redator
-    role: "Redator de Relatórios"
-    goal: "Gerar um relatório coeso e organizado com base nas informações coletadas"
-    backstory: >
-      "Você transforma insights brutos em um texto claro, organizado em introdução, desenvolvimento e conclusão."
-    llm:
-      provider: "openai"
-      model_name: "gpt-4o-mini"
-      temperature: 0.5
-    memory: true
+    memory: false
     max_iter: 2
     allow_delegation: false
     verbose: true
